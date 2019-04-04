@@ -18,6 +18,12 @@ namespace VisitWrocloveWeb.Models
                 .HasOne(a => a.PlaceEvent)
                 .WithOne(p => p.Address)
                 .HasForeignKey<PlaceEvent>(p => p.AddressForeignKey);
+
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+            base.OnModelCreating(modelBuilder);
         }
         public DbSet<VisitWrocloveWeb.Models.Route> Route { get; set; }
     }
