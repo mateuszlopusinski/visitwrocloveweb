@@ -7,6 +7,7 @@ using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.Models
 {
+    //"VisitWrocloveWebContext": "Server=.;Database=VisitWrocloveWebContext-069b0bfc-df05-4239-9fc3-5ed9dfd42fc8;Trusted_Connection=True;MultipleActiveResultSets=true",
     public class VisitWrocloveWebContext : DbContext
     {
         public VisitWrocloveWebContext (DbContextOptions<VisitWrocloveWebContext> options)

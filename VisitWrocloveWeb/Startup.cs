@@ -58,7 +58,10 @@ namespace VisitWrocloveWeb
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                scope.ServiceProvider.GetRequiredService<VisitWrocloveWebContext>().Database.Migrate();
+            }
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -68,7 +71,7 @@ namespace VisitWrocloveWeb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
