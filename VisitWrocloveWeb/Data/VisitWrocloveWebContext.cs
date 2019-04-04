@@ -19,6 +19,9 @@ namespace VisitWrocloveWeb.Models
                 .WithOne(p => p.Address)
                 .HasForeignKey<PlaceEvent>(p => p.AddressForeignKey);
 
+            modelBuilder.Entity<Event>();
+            modelBuilder.Entity<Place>();
+
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
