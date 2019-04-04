@@ -28,7 +28,6 @@ namespace VisitWrocloveWeb.Auth
             }
 
             return await _userManager.CheckPasswordAsync(user, password);
-            return false;
         }
 
         public async Task<bool> UpdatePassword(int userId, string oldPassword, string newPassword)
@@ -42,7 +41,6 @@ namespace VisitWrocloveWeb.Auth
             var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
 
             return result.Succeeded;
-            return false;
         }
     }
 }

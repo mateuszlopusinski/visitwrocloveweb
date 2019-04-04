@@ -8,7 +8,7 @@ using VisitWrocloveWeb.Auth.Models;
 
 namespace VisitWrocloveWeb.Auth
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly IJwtProvider _jwtProvider;
         private readonly IRefreshTokenProvider _refreshTokenProvider;

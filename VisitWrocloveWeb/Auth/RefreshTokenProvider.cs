@@ -30,7 +30,6 @@ namespace VisitWrocloveWeb.Auth
             }
 
             return originUser.RefreshToken == refreshToken && originUser.RefreshTokenExpiryDate > DateTime.UtcNow;
-            return false;
         }
 
         public async Task SaveRefreshTokenAsync(int userId, string userEmail, RefreshToken refreshToken)

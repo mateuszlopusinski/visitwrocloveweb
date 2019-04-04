@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VisitWrocloveWeb.Models;
 using Swashbuckle.AspNetCore.Swagger;
+using VisitWrocloveWeb.Auth.DI;
 
 namespace VisitWrocloveWeb
 {
@@ -34,7 +35,7 @@ namespace VisitWrocloveWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
+            services.AddAuthService();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddDbContext<VisitWrocloveWebContext>(options =>
