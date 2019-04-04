@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using VisitWrocloveWeb.Auth.Interfaces;
 using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.API
@@ -14,10 +15,12 @@ namespace VisitWrocloveWeb.API
     public class UsersController : ControllerBase
     {
         private readonly VisitWrocloveWebContext _context;
+        private IAuthService _authService { get; set; }
 
-        public UsersController(VisitWrocloveWebContext context)
+        public UsersController(VisitWrocloveWebContext context, IAuthService authService)
         {
             _context = context;
+            _authService = authService;
         }
 
         // GET: api/Users

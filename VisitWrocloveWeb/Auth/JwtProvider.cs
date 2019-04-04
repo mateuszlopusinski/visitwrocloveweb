@@ -26,7 +26,7 @@ namespace VisitWrocloveWeb.Auth
             _jwtOptions = jwtOptions.Value;
             _refreshTokenProvider = refreshTokenProvider;
             _userManager = userManager;
-            ThrowIfInvalidOptions(_jwtOptions);
+            //ThrowIfInvalidOptions(_jwtOptions);
         }
 
         private async Task<JsonWebToken> GenerateAccessAndRefreshTokenAsync(User user)

@@ -4,12 +4,18 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using VisitWrocloveWeb.Auth.Interfaces;
 using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private IAuthService _authService { get; set; }
+        public HomeController(IAuthService authService)
+        {
+            _authService = authService;
+        }
         public IActionResult Index()
         {
             return View();
