@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.Models
 {
@@ -29,5 +30,7 @@ namespace VisitWrocloveWeb.Models
             base.OnModelCreating(modelBuilder);
         }
         public DbSet<VisitWrocloveWeb.Models.Route> Route { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.User> User { get; set; }
+        public object Users { get; internal set; }
     }
 }

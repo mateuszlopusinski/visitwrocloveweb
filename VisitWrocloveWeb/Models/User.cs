@@ -1,15 +1,18 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace VisitWrocloveWeb.Models
 {
-    public class User
+    public class User : IdentityUser<int>
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public DateTime CreationDate { get; set; }
+
+        public string RefreshToken { get; set; }
 
         public string Email { get; set; }
 
@@ -20,6 +23,8 @@ namespace VisitWrocloveWeb.Models
         public bool IsAdmin { get; set; }
 
         public bool IsPremium { get; set; }
+        public DateTime RefreshTokenCreatedDate { get; set; }
+        public DateTime RefreshTokenExpiryDate { get; set; }
 
         public virtual ICollection<PremiumPayment> Points { get; set; }
 
