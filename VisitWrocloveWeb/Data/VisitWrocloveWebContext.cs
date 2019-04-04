@@ -32,5 +32,9 @@ namespace VisitWrocloveWeb.Models
         public DbSet<VisitWrocloveWeb.Models.Route> Route { get; set; }
         public DbSet<VisitWrocloveWeb.Models.User> User { get; set; }
         public object Users { get; internal set; }
+        public DbSet<VisitWrocloveWeb.Models.Event> Event { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.Place> Place { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.RoutePoint> RoutePoint { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.Address> Address { get; set; }
     }
 }

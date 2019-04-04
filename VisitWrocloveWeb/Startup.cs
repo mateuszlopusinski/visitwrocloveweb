@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using VisitWrocloveWeb.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace VisitWrocloveWeb
 {
@@ -38,6 +39,11 @@ namespace VisitWrocloveWeb
 
             services.AddDbContext<VisitWrocloveWebContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("VisitWrocloveWebContext")));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "VisitWroclove", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +58,12 @@ namespace VisitWrocloveWeb
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "VisitWroclove");
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
