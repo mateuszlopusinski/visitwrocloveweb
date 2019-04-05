@@ -112,7 +112,7 @@ namespace VisitWrocloveWeb.Auth
                 return null;
             }
 
-            //var passwordValid = await _userManager.CheckPasswordAsync(user, password);
+            var passwordValid = user.Password.Equals(password);
 
             if (!passwordValid)
             {
