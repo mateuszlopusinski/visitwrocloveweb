@@ -8,18 +8,12 @@ namespace VisitWrocloveWeb.Models
 {
     public class User : IdentityUser<int>
     {
-        //public int Id { get; set; }
-
         public DateTime CreationDate { get; set; }
 
         public string RefreshToken { get; set; }
-
-        public string Email { get; set; }
-
+        
         public string Login { get; set; }
-
-        public string Password { get; set; }
-
+        public override string NormalizedEmail { get => base.NormalizedEmail; set => base.NormalizedEmail = Email; }
         public bool IsAdmin { get; set; }
 
         public bool IsPremium { get; set; }

@@ -14,6 +14,7 @@ using VisitWrocloveWeb.Models;
 using Swashbuckle.AspNetCore.Swagger;
 using VisitWrocloveWeb.Auth.DI;
 using VisitWrocloveWeb.Auth.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace VisitWrocloveWeb
 {
@@ -41,7 +42,7 @@ namespace VisitWrocloveWeb
             
             services.AddDbContext<VisitWrocloveWebContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("VisitWrocloveWebContext")));
-            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<VisitWrocloveWebContext>();
+            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<VisitWrocloveWebContext>().AddDefaultTokenProviders(); ;
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "VisitWroclove", Version = "v1" });

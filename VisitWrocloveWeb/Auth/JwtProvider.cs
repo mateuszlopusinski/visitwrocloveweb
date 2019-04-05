@@ -39,12 +39,12 @@ namespace VisitWrocloveWeb.Auth
                     ClaimValueTypes.Integer64),
             };
 
-            var roles = await _userManager.GetRolesAsync(user);
+            //var roles = await _userManager.GetRolesAsync(user);
 
-            if (roles != null)
-            {
-                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
-            }
+            //if (roles != null)
+            //{
+            //    claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+            //}
 
             //Create the JWT security token and encode it.
             var jwt = new JwtSecurityToken(
@@ -69,7 +69,7 @@ namespace VisitWrocloveWeb.Auth
                 {
                     FirstName = user.Login,
                     LastName = user.Email,
-                    Roles = roles?.ToList(),
+                    //Roles = roles?.ToList(),
                     Id = user.Id
                 }
             };
@@ -112,7 +112,7 @@ namespace VisitWrocloveWeb.Auth
                 return null;
             }
 
-            var passwordValid = await _userManager.CheckPasswordAsync(user, password);
+            //var passwordValid = await _userManager.CheckPasswordAsync(user, password);
 
             if (!passwordValid)
             {
