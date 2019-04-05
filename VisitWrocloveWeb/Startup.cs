@@ -15,6 +15,14 @@ using Swashbuckle.AspNetCore.Swagger;
 using VisitWrocloveWeb.Auth.DI;
 using VisitWrocloveWeb.Auth.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using VisitWrocloveWeb.Auth.Convention;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using VisitWrocloveWeb.Auth.Extension;
 
 namespace VisitWrocloveWeb
 {
@@ -38,8 +46,26 @@ namespace VisitWrocloveWeb
             });
             services.AddTransient<IInfrastructureConfig, InfrastructureConfig>();
             services.AddAuthService();
+            services.ConfigureJwt();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAuthorization(o =>
+            {
+                o.AddPolicy("defaultpolicy", b =>
+                {
+                    b.RequireAuthenticatedUser();
+                });
+                o.AddPolicy("apipolicy", b =>
+                {
+                    b.RequireAuthenticatedUser();
+                    b.AuthenticationSchemes = new List<string> { JwtBearerDefaults.AuthenticationScheme };
+                });
+            });
+            services.AddMvc(o =>
+            {
+                o.Conventions.Add(new AddAuthorizeFiltersControllerConvention());
+            });
             
+
             services.AddDbContext<VisitWrocloveWebContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("VisitWrocloveWebContext")));
             services.AddDefaultIdentity<User>().AddEntityFrameworkStores<VisitWrocloveWebContext>().AddDefaultTokenProviders(); ;

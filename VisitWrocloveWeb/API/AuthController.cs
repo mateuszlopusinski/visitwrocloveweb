@@ -14,6 +14,7 @@ namespace VisitWrocloveWeb.API
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
