@@ -46,27 +46,27 @@ namespace VisitWrocloveWeb.API
             }
         }
 
-        //[AllowAnonymous]
-        //[HttpPost("refresh_token")]
-        //[ProducesResponseType(typeof(JsonWebToken), 200)]
-        //public async Task<IActionResult> RefreshTokenAsync([FromBody] LoginByRefreshTokenViewModel loginByRefreshToken)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        [AllowAnonymous]
+        [HttpPost("refresh_token")]
+        [ProducesResponseType(typeof(JsonWebToken), 200)]
+        public async Task<IActionResult> RefreshTokenAsync([FromBody] LoginByRefreshTokenViewModel loginByRefreshToken)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    try
-        //    {
-        //        var token = await _authService.LoginByRefreshToken(loginByRefreshToken.RefreshToken, loginByRefreshToken.UserId);
+            try
+            {
+                var token = await _authService.LoginByRefreshToken(loginByRefreshToken.RefreshToken, loginByRefreshToken.UserId);
 
-        //        return Ok(token);
-        //    }
-        //    catch (UnauthorizedException)
-        //    {
-        //        return Unauthorized();
-        //    }
-        //}
+                return Ok(token);
+            }
+            catch (UnauthorizedException)
+            {
+                return Unauthorized();
+            }
+        }
 
         //[HttpPut("{userId}")]
         //[ProducesResponseType(200)]

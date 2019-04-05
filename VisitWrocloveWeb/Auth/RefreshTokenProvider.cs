@@ -48,7 +48,7 @@ namespace VisitWrocloveWeb.Auth
             return new RefreshToken
             {
                 IssuedUtc = DateTime.UtcNow,
-                ExpiresUtc = DateTime.UtcNow.AddMinutes(_refreshTokenConfig.RefreshTokenExpiryInMinutes),
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(10800),
                 Token = Guid.NewGuid().ToString().Replace("-", "")
             };
         }
