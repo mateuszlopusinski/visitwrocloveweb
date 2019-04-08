@@ -12,18 +12,18 @@ namespace VisitWrocloveWeb.Auth.Convention
         public void Apply(ControllerModel controller)
         {
             //edit ???
-            if (controller.DisplayName.Contains("api"))
-            {
+            //if (controller.DisplayName.Contains("api"))
+            //{
 
             //}
             //if (controller.ControllerName.Contains("Api"))
             //{
                 controller.Filters.Add(new AuthorizeFilter("apipolicy"));
-            }
-            else
-            {
-                controller.Filters.Add(new AuthorizeFilter("defaultpolicy"));
-            }
+            //}
+            //else
+            //{
+            //    //controller.Filters.Add(new AuthorizeFilter("defaultpolicy"));
+            //}
         }
     }
 }
