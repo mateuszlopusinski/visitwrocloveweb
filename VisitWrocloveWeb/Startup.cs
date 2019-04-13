@@ -47,7 +47,11 @@ namespace VisitWrocloveWeb
             services.AddTransient<IInfrastructureConfig, InfrastructureConfig>();
             services.AddAuthService();
             services.ConfigureJwt();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(
+                    options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                ); ;
             services.AddAuthorization(o =>
             {
                 o.AddPolicy("defaultpolicy", b =>

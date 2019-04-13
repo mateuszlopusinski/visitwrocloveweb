@@ -25,22 +25,14 @@ namespace VisitWrocloveWeb.API
         [HttpGet]
         public IActionResult GetEvent() 
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             var list = _context.Event.Include(x => x.Address);
-            return new JsonResult(list, options);
+            return new JsonResult(list);
         }
 
         // GET: api/Events/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEvent([FromRoute] int id)
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -53,7 +45,7 @@ namespace VisitWrocloveWeb.API
                 return NotFound();
             }
             
-            return new JsonResult(@event, options);
+            return new JsonResult(@event);
         }
 
         // PUT: api/Events/5

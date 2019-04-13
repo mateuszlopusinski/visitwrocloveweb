@@ -29,27 +29,19 @@ namespace VisitWrocloveWeb.API
         [HttpGet]
         public IActionResult GetUser()
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             var list = _context.User
                 .Include(u => u.Reviews)
                 .Include(u => u.Routes)
                 .Include(u => u.Favorites)
                 .Include(u => u.SavedRoutes)
                 .Include(u => u.Points);
-            return new JsonResult(list, options);
+            return new JsonResult(list);
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -67,7 +59,7 @@ namespace VisitWrocloveWeb.API
                 return NotFound();
             }
 
-            return new JsonResult(user, options);
+            return new JsonResult(user);
         }
 
         // PUT: api/Users/5

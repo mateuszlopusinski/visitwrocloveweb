@@ -25,24 +25,16 @@ namespace VisitWrocloveWeb.API
         [HttpGet]
         public IActionResult GetRoutePoint()
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             var list = _context.RoutePoint
                 .Include(rp => rp.PlaceEvent)
                 .Include(rp => rp.Route);
-            return new JsonResult(list, options);
+            return new JsonResult(list);
         }
 
         // GET: api/RoutePoints/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoutePoint([FromRoute] int id)
         {
-            var options = new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -57,7 +49,7 @@ namespace VisitWrocloveWeb.API
                 return NotFound();
             }
 
-            return new JsonResult(routePoint, options);
+            return new JsonResult(routePoint);
         }
 
         // PUT: api/RoutePoints/5
