@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.API
@@ -22,28 +23,41 @@ namespace VisitWrocloveWeb.API
 
         // GET: api/RoutePoints
         [HttpGet]
-        public IEnumerable<RoutePoint> GetRoutePoint()
+        public IActionResult GetRoutePoint()
         {
-            return _context.RoutePoint;
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            var list = _context.RoutePoint
+                .Include(rp => rp.PlaceEvent)
+                .Include(rp => rp.Route);
+            return new JsonResult(list, options);
         }
 
         // GET: api/RoutePoints/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoutePoint([FromRoute] int id)
         {
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var routePoint = await _context.RoutePoint.FindAsync(id);
+            var list = _context.RoutePoint
+                .Include(rp => rp.PlaceEvent)
+                .Include(rp => rp.Route);
+            var routePoint = await list.FirstOrDefaultAsync(rp => rp.Id.Equals(id));
 
             if (routePoint == null)
             {
                 return NotFound();
             }
 
-            return Ok(routePoint);
+            return new JsonResult(routePoint, options);
         }
 
         // PUT: api/RoutePoints/5

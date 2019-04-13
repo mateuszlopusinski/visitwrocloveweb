@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using VisitWrocloveWeb.Auth.Interfaces;
 using VisitWrocloveWeb.Models;
 
@@ -26,28 +27,47 @@ namespace VisitWrocloveWeb.API
 
         // GET: api/Users
         [HttpGet]
-        public IEnumerable<User> GetUser()
+        public IActionResult GetUser()
         {
-            return _context.User;
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            var list = _context.User
+                .Include(u => u.Reviews)
+                .Include(u => u.Routes)
+                .Include(u => u.Favorites)
+                .Include(u => u.SavedRoutes)
+                .Include(u => u.Points);
+            return new JsonResult(list, options);
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser([FromRoute] int id)
         {
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var user = await _context.User.FindAsync(id);
+            var list = _context.User
+                .Include(u => u.Reviews)
+                .Include(u => u.Routes)
+                .Include(u => u.Favorites)
+                .Include(u => u.SavedRoutes)
+                .Include(u => u.Points);
+            var user = await list.FirstOrDefaultAsync(u=> u.Id.Equals(id));
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return new JsonResult(user, options);
         }
 
         // PUT: api/Users/5

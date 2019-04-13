@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using VisitWrocloveWeb.Models;
 
 namespace VisitWrocloveWeb.API
@@ -22,28 +23,39 @@ namespace VisitWrocloveWeb.API
 
         // GET: api/Routes
         [HttpGet]
-        public IEnumerable<Route> GetRoute()
+        public IActionResult GetRoute()
         {
-            return _context.Route;
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            var list = _context.Route
+                .Include(r => r.User);
+            return new JsonResult(list, options);
         }
 
         // GET: api/Routes/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoute([FromRoute] int id)
         {
+            var options = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var route = await _context.Route.FindAsync(id);
+            var list = _context.Route
+                .Include(r => r.User);
+            var route = await list.FirstOrDefaultAsync(r => r.Id.Equals(id));
 
             if (route == null)
             {
                 return NotFound();
             }
 
-            return Ok(route);
+            return new JsonResult(route, options);
         }
 
         // PUT: api/Routes/5
