@@ -37,5 +37,9 @@ namespace VisitWrocloveWeb.Models
         public DbSet<VisitWrocloveWeb.Models.Place> Place { get; set; }
         public DbSet<VisitWrocloveWeb.Models.RoutePoint> RoutePoint { get; set; }
         public DbSet<VisitWrocloveWeb.Models.Address> Address { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.Favorite> Favorite { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.Review> Review { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.PremiumPayment> PremiumPayment { get; set; }
+        public DbSet<VisitWrocloveWeb.Models.SavedRoute> SavedRoute { get; set; }
     }
 }
