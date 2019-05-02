@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using VisitWrocloveWeb.Auth.Extension;
+using VisitWrocloveWeb.Resolver;
 
 namespace VisitWrocloveWeb
 {
@@ -46,6 +47,7 @@ namespace VisitWrocloveWeb
             });
             services.AddTransient<IInfrastructureConfig, InfrastructureConfig>();
             services.AddAuthService();
+            services.AddScoped<IPaymentsResolver, PaymentsResolver>();
             services.ConfigureJwt();
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
