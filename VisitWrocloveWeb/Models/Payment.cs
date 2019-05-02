@@ -9,6 +9,6 @@ namespace VisitWrocloveWeb.Models
     {
         public int UserId;
 
-        public int Number;
+        public string Number;
     }
 }
