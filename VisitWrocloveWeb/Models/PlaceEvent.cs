@@ -21,6 +21,8 @@ namespace VisitWrocloveWeb.Models
 
         public int AddressForeignKey { get; set; }
 
+        public double Rating { get; set; }
+
         public virtual ICollection<RoutePoint> RoutePoints { get; set; }
 
         public virtual ICollection<Favorite> Favorites { get; set; }

@@ -26,6 +26,18 @@ namespace VisitWrocloveWeb.API
         public IActionResult GetPlace()
         {
             var list = _context.Place.Include(x => x.Address);
+            foreach (var item in list)
+            {
+                var eventReviews = _context.Review.Where(x => x.PlaceEventId.Equals(item.Id)).ToList();
+                double rating = 0.0;
+                if (eventReviews.Count() > 0)
+                {
+                    double sum = eventReviews.Sum(x => x.Mark);
+                    double count = eventReviews.Count();
+                    rating = sum / count;
+                }
+                item.Rating = rating;
+            }
             return new JsonResult(list);
         }
 
@@ -33,6 +45,15 @@ namespace VisitWrocloveWeb.API
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPlace([FromRoute] int id)
         {
+            var eventReviews = _context.Review.Where(x => x.PlaceEventId.Equals(id)).ToList();
+            double rating = 0.0;
+            if (eventReviews.Count() > 0)
+            {
+                double sum = eventReviews.Sum(x => x.Mark);
+                double count = eventReviews.Count();
+                rating = sum / count;
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -45,6 +66,7 @@ namespace VisitWrocloveWeb.API
             {
                 return NotFound();
             }
+            place.Rating = rating;
 
             return new JsonResult(place);
         }
